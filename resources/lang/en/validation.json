@@ -1,0 +1,34 @@
+{
+  "login": {
+    "*": "{field} is required to login",
+    "exists": "{field} does not exists in our database"
+  },
+  "ForgetPassword": {
+    "username.required": "Please provide your email address linked to your  Account",
+    "username.exists": "This account does not exists in our database, Please check your phone number",
+    "otp.maxLength": "One-time password cannot be longer than {maxlength} digits",
+    "password.regex": "Please provide valid password"
+  },
+  "register": {
+    "firstName.required": "First name is required and cannot be empty",
+    "lastName.required": "Last name is required and cannot be empty",
+    "email.required": "Email address is required and cannot be empty",
+    "email.email": "Please provide a valid email address",
+    "email.regex": "Please provide a valid email address",
+    "email.unique": "Email is already linked to other account, Please provide a new email or login",
+    "mobile.required": "Phone number is required and cannot be empty",
+    "mobile.unique": "Phone number is already linked to other account, Please provide a new phone number or login",
+    "password.required": "Password is required and cannot be empty",
+    "password.minLength": "Password must have at-least {minLength} characters",
+    "password.confirmed": "Password and confirmed password do not match",
+    "password_confirmation.confirmed": "Password and confirmed password do not match",
+    "password.regex": "Please provide valid password",
+    "country.required": "Country code is required and cannot be empty",
+    "dob.date.format": "Please provide valid date",
+    "country.range": "Invalid Country code"
+  },
+  "user": {
+    "regex": "Please provide a valid email address",
+    "exists": "Email does not exist in our database"
+  }
+}

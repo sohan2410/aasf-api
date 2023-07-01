@@ -1,0 +1,13 @@
+{
+  "resetPassword": {
+    "subject": "Reset password Link",
+    "body": "Reset password for Application",
+    "greet": "Greetings"
+  },
+  "registerUser": {
+    "subject": "Registration successfull",
+    "body": "Welcome onboard, ",
+    "greet": "Greetings {name}",
+    "subBody": "Your registeration has been successfull"
+  }
+}
