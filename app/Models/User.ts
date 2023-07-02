@@ -13,7 +13,7 @@ export default class User extends compose(BaseModel, File, Functions) {
   public static EMAIL_REGEX = new RegExp(process.env.EMAIL_REGEX || '')
 
   @column({ isPrimary: true })
-  public id: number
+  public id: string
 
   @column()
   public email: string
@@ -28,13 +28,16 @@ export default class User extends compose(BaseModel, File, Functions) {
   public lastName: string
 
   @column()
-  public rollNo: string
-
-  @column()
   public phoneNo: string
 
   @column()
   public image: string
+
+  @column()
+  public linkedinUrl: string
+
+  @column()
+  public githubUrl: string
 
   @column()
   public roleId: number
@@ -59,10 +62,6 @@ export default class User extends compose(BaseModel, File, Functions) {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
     }
-    const batch = user.email.slice(0, 3).toUpperCase()
-    const year = user.email.slice(4, 8)
-    const roll = user.email.slice(8, 11)
-    user.rollNo = year + batch + '-' + roll
   }
 
   @afterFind()
@@ -76,7 +75,7 @@ export default class User extends compose(BaseModel, File, Functions) {
   static async doLogin(auth, UserData) {
     try {
       let { username, password } = UserData
-      let userData = await User.query().where('roll_no', 'LIKE', `${username}%`).orWhere('email', 'LIKE', `${username}%`).first()
+      let userData = await User.query().where('id', 'LIKE', `${username}%`).orWhere('email', 'LIKE', `${username}%`).first()
       if (!userData) return User.getResponse(0, 'auth.accountNotFound')
       let token = await auth.attempt(userData.email, password, { expiresIn: '7days' })
       userData.load('roles')

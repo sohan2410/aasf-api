@@ -33,4 +33,5 @@ export default Env.rules({
   SMTP_PORT: Env.schema.number(),
   SMTP_USERNAME: Env.schema.string(),
   SMTP_PASSWORD: Env.schema.string(),
+  MEDIUM_TOKEN: Env.schema.string(),
 })

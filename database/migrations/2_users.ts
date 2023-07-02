@@ -5,14 +5,15 @@ export default class UsersSchema extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').primary()
+      table.string('id').primary()
       table.string('first_name')
       table.string('last_name')
-      table.string('roll_no')
       table.string('phone_no')
       table.string('email', 255).notNullable()
       table.string('password', 255).notNullable()
       table.string('image').nullable()
+      table.string('linkedin_url')
+      table.string('github_url')
       table.integer('role_id').unsigned().references('id').inTable('roles').onDelete('CASCADE')
 
       /**
