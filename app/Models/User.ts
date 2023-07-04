@@ -79,7 +79,7 @@ export default class User extends compose(BaseModel, File, Functions) {
       if (!userData) return User.getResponse(0, 'auth.accountNotFound')
       let token = await auth.attempt(userData.email, password, { expiresIn: '7days' })
       userData.load('roles')
-      return User.getResponse(1, 'auth.loginSuccessful', userData, { token })
+      return User.getResponse(1, 'auth.loginSuccessful', { user: userData, token })
     } catch (err) {
       console.log(err, UserData)
       return User.getResponse(0, `auth.${!err.uidField ? 'incorrectPassword' : 'accountNotFound'}`)

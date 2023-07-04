@@ -70,6 +70,7 @@
     "@adonisjs/view": "^6.1.5",
     "@rocketseat/adonis-bull": "^1.0.4",
     "@types/socket.io": "^3.0.2",
+    "adonisjs-cloudinary": "^0.1.6",
     "crypto-js": "^4.1.1",
     "luxon": "^2.4.0",
     "mysql": "^2.18.1",
