@@ -21,7 +21,7 @@ export default class Abhishar extends BaseModel {
   public pdfLink: string
 
   @column()
-  public dateOfLaunch: Date
+  public dateOfLaunch: string
 
   @column()
   public url: string

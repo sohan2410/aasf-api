@@ -19,6 +19,18 @@ export default class EventsController {
     const event = await Event.create(data)
     return User.getResponse(1, 'events.created', event)
   }
-  //   public async update({ params, request, auth }) {}
-  public async destroy({ params }) {}
+  public async update({ params, request, auth }) {
+    const { id } = params
+    // 1. validate the request body
+    // 2. find the event by id... const event = await Event.find(id)
+    // 3. merge event with the reqeust body
+    // 4. save the event
+    // 5. return the response
+  }
+  public async destroy({ params }) {
+    const { id } = params
+    // 1. find the event by id... const event = await Event.find(id)
+    // 2. delete the event
+    // 3. return the response
+  }
 }
