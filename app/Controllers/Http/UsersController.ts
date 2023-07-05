@@ -13,11 +13,12 @@ export default class UsersController {
     const file = await request.file('image')
     const user = await User.find(auth.user.id)
     if (!user) return User.getResponse(0, 'user.notFound')
+    if (!file) return User.getResponse(0, 'user.fileNotFound')
     if (file) {
       const imageUrl = await cloudinary.upload(file.tmpPath, Env.get('CLOUDINARY_API_KEY'), { folder: 'users', public_id: user.id })
       user.image = imageUrl.secure_url
       await user?.save()
-      return User.getResponse(1, 'user.imageUploaded')
+      return User.getResponse(1, 'user.imageUploaded', { image: imageUrl.secure_url })
     }
     return User.getResponse(0, 'user.fileNotFound')
   }

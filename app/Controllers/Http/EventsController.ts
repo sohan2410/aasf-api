@@ -8,7 +8,8 @@ import EventValidator from 'App/Validators/Events/EventValidator'
 export default class EventsController {
   public async index({ request }) {
     const events = await Event.query()
-      .preload('event_links')
+      .preload('sub_events')
+      .preload('organizers', (q) => q.preload('user'))
       .preload('event_images', (q) => q.select('image_url'))
       .preload('category')
     return User.getResponse(1, 'events.fetched', events)

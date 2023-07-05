@@ -2,7 +2,8 @@ import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, HasMany, HasOne, afterFind, belongsTo, column, computed, hasMany, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import EventImage from './EventImage'
 import Category from './Category'
-import EventLink from './EventLink'
+import SubEvent from './SubEvent'
+import Organizer from './Organizer'
 
 export default class Event extends BaseModel {
   @column({ isPrimary: true })
@@ -20,21 +21,9 @@ export default class Event extends BaseModel {
   @column()
   public type: string
 
-  // @column.dateTime({
-  //   autoCreate: true,
-  //   serialize: (value: DateTime | null) => {
-  //     return value ? value.toFormat('ff') : ''
-  //   },
-  // })
   @column()
   public startDate: DateTime
 
-  // @column.dateTime({
-  //   autoCreate: true,
-  //   serialize: (value: DateTime | null) => {
-  //     return value ? value.toFormat('ff') : ''
-  //   },
-  // })
   @column()
   public endDate: DateTime
 
@@ -44,17 +33,32 @@ export default class Event extends BaseModel {
   @column({ serializeAs: null })
   public categoryId: number
 
+  @column()
+  public registrationLink: string
+
+  @column()
+  public preResourceLink: string
+
+  @column()
+  public postResourceLink: string
+
+  @column()
+  public feedbackLink: string
+
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime
 
+  @hasMany(() => SubEvent)
+  public sub_events: HasMany<typeof SubEvent>
+
+  @hasMany(() => Organizer)
+  public organizers: HasMany<typeof Organizer>
+
   @hasMany(() => EventImage)
   public event_images: HasMany<typeof EventImage>
-
-  @hasMany(() => EventLink)
-  public event_links: HasMany<typeof EventLink>
 
   @belongsTo(() => Category)
   public category: BelongsTo<typeof Category>

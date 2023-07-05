@@ -11,6 +11,7 @@ export default class extends BaseSchema {
       table.string('user_id').references('id').inTable('users').nullable()
       table.string('github_url')
       table.string('linkedin_url')
+      table.integer('event_id').unsigned().references('id').inTable('events').onDelete('CASCADE')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

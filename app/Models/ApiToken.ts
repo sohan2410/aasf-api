@@ -7,7 +7,7 @@ export default class ApiToken extends BaseModel {
   public id: number
 
   @column()
-  public userId: number
+  public userId: string
 
   @column()
   public name: string
