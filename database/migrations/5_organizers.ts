@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('name')
       table.string('email_id')
-      table.integer('user_id').unsigned().references('id').inTable('users').nullable()
+      table.string('user_id').references('id').inTable('users').nullable()
       table.string('github_url')
       table.string('linkedin_url')
 
