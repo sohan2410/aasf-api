@@ -23,6 +23,7 @@ export default class AttendancesController {
     if (!decrypted) return User.getResponse(0, 'event.invalidQRCode')
     const subEvent = await SubEvent.query().where('eventId', decrypted.eventId).andWhere('day', decrypted.day).first()
     if (!subEvent) return User.getResponse(0, 'event.subEventNotFound')
+    // mark attendace if current date === event start date
     subEvent.related('attendance').firstOrCreate({ subEventId: subEvent.id, userId: user.id })
     return User.getResponse(1, 'event.attendanceMarked')
   }
@@ -37,7 +38,6 @@ export default class AttendancesController {
           if (subEventId && userId) await Attendance.create({ subEventId: subEventId, userId: userId })
         } catch (error) {}
       }
-      //   await Attendance.createMany(attendance)
       return User.getResponse(1, 'event.attendanceUploaded')
     } catch (error) {
       return User.getResponse(0, 'event.invalidCSVFormat', error)
