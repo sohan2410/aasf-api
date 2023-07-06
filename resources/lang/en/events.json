@@ -1,0 +1,6 @@
+{
+  "fetched": "Events fetched successfully",
+  "created": "Events created successfully",
+  "updated": "Events updated successfully",
+  "destroyed": "Events destroyed successfully"
+}

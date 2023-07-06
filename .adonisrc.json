@@ -29,7 +29,8 @@
     "@adonisjs/i18n",
     "@rocketseat/adonis-bull",
     "@adonisjs/mail",
-    "@adonisjs/view"
+    "@adonisjs/view",
+    "adonisjs-cloudinary"
   ],
   "aceProviders": [
     "@adonisjs/repl"
