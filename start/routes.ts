@@ -4,6 +4,8 @@ import '../Routes/Event'
 import '../Routes/Blog'
 import '../Routes/Abhishar'
 import '../Routes/User'
+import '../Routes/Attendance'
+
 Route.get('/', async ({}) => {
   return { message: 'Server is up and running' }
 })

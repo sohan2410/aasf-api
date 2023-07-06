@@ -12,6 +12,7 @@ export default class extends BaseSchema {
       table.time('start_time')
       table.time('end_time')
       table.string('url')
+      table.string('type').defaultTo('offline')
       table.string('location')
       table.string('docs')
 
