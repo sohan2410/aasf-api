@@ -2,9 +2,10 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Event from 'App/Models/Event'
 import EventImage from 'App/Models/EventImage'
 import User from 'App/Models/User'
-
-import EventValidator from 'App/Validators/Events/EventValidator'
 import EventUpdateValidator from 'App/Validators/Events/EventUpdateValidator'
+import cloudinary from '@ioc:Adonis/Addons/Cloudinary'
+import EventValidator from 'App/Validators/Events/EventValidator'
+import Env from '@ioc:Adonis/Core/Env'
 
 export default class EventsController {
   public async index({ request }) {
@@ -18,24 +19,31 @@ export default class EventsController {
   //   public async show({ request, params }) {}
   public async store({ request }) {
     const data = await request.validate(EventValidator)
+    const images: Array<Object> = []
+    const files = request.files('images')
+    if (files) {
+      for (var i = 0; i < files.length; i++) {
+        const imageUrl = await cloudinary.upload(files[i].tmpPath, Env.get('CLOUDINARY_API_KEY'), { folder: 'events', eager: [{ width: 200, height: 200 }], public_id: `${Date.now()}` })
+        images.push({ imageUrl: imageUrl.secure_url })
+      }
+    }
     const event = await Event.create(data)
+    await event.related('event_images').createMany(images)
     return User.getResponse(1, 'events.created', event)
   }
   public async update({ params, request, auth }) {
     const { id } = params
     const data = await request.validate(EventUpdateValidator)
     const event = await Event.find(id)
-    if(!event) return User.getResponse(0, 'events.notFound')
-    await event
-    .merge(data)
-    .save()
-    return User.getResponse(1, 'events.updated', event)
+    if (!event) return User.getResponse(0, 'events.notFound')
+    await event.merge(data).save()
+    return User.getResponse(1, 'events.updated', event)
   }
   public async destroy({ params }) {
     const { id } = params
     const event = await Event.findOrFail(id)
-    if(!event) return User.getResponse(0,'events.notFound')
+    if (!event) return User.getResponse(0, 'events.notFound')
     await event.delete()
-    return User.getResponse(1,'events.destroyed')
+    return User.getResponse(1, 'events.destroyed')
   }
 }
