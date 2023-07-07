@@ -16,13 +16,13 @@ export default class SubEvent extends BaseModel {
   public date: Date
 
   @column()
-  public time: DateTime
+  public time: Date
 
   @column()
-  public start_time: DateTime
+  public start_time: Date
 
   @column()
-  public end_time: DateTime
+  public end_time: Date
 
   @column()
   public url: string
