@@ -2,7 +2,7 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { MyReporter } from 'App/Validators/Reporters/MyReporter'
 
-export default class EventValidator {
+export default class EventUpdateValidator {
   constructor(protected ctx: HttpContextContract) {}
   public reporter = MyReporter
 
@@ -14,10 +14,9 @@ export default class EventValidator {
     categoryId: schema.number.optional(),
     registrationLink: schema.string.optional(),
     location: schema.string.optional(),
-    type: schema.string.optional(),
+    type: schema.enum.optional(['offline','online']),
     preResourceLink: schema.string.optional(),
-    postResourceLink: schema.string.optional(),
-    feedbackLink: schema.string.optional(),
+    postResourceLink: schema.string.optional()
   })
 
   // public messages = {}

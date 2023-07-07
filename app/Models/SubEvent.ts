@@ -36,6 +36,9 @@ export default class SubEvent extends BaseModel {
   @column()
   public docs: string
 
+  @column()
+  public feedback_link: string
+
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 

@@ -16,7 +16,6 @@ export default class extends BaseSchema {
       table.string('registration_link')
       table.string('pre_resource_link')
       table.string('post_resource_link')
-      table.string('feedback_link')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

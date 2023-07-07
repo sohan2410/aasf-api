@@ -15,7 +15,7 @@ export default class extends BaseSchema {
       table.string('type').defaultTo('offline')
       table.string('location')
       table.string('docs')
-
+      table.string('feedback_link')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

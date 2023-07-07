@@ -42,9 +42,6 @@ export default class Event extends BaseModel {
   @column()
   public postResourceLink: string
 
-  @column()
-  public feedbackLink: string
-
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 
