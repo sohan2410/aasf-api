@@ -1,11 +1,10 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.resource('/', 'Event/EventsController')
-  Route.resource('/image', 'Event/EventImagesController')
-  Route.resource('/sub-events', 'Event/SubEventsController')
-}).prefix('events')
-
+  Route.resource('events', 'Event/EventsController')
+  Route.resource('events/image', 'Event/EventImagesController')
+  Route.resource('events/sub-events', 'Event/SubEventsController')
+})
 
 // .middleware({ store: ['auth', 'admin'], update: ['auth', 'admin'], destroy: ['auth', 'admin'] })
 

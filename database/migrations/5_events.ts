@@ -14,8 +14,8 @@ export default class extends BaseSchema {
       table.timestamp('start_date')
       table.timestamp('end_date')
       table.string('registration_link')
-      table.string('pre_resource_link')
-      table.string('post_resource_link')
+      table.string('resource_link')
+      table.string('feedback_link')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

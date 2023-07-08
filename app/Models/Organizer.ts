@@ -19,7 +19,7 @@ export default class Organizer extends BaseModel {
   public githubUrl: string
 
   @column()
-  public linkedIn: string
+  public linkedinUrl: string
 
   @column()
   public eventId: number

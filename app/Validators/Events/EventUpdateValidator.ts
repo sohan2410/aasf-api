@@ -14,9 +14,9 @@ export default class EventUpdateValidator {
     categoryId: schema.number.optional(),
     registrationLink: schema.string.optional(),
     location: schema.string.optional(),
-    type: schema.enum.optional(['offline','online']),
-    preResourceLink: schema.string.optional(),
-    postResourceLink: schema.string.optional()
+    type: schema.enum.optional(['offline', 'online']),
+    feedbackLink: schema.string.optional(),
+    resourceLink: schema.string.optional(),
   })
 
   // public messages = {}

@@ -37,10 +37,10 @@ export default class Event extends BaseModel {
   public registrationLink: string
 
   @column()
-  public preResourceLink: string
+  public resourceLink: string
 
   @column()
-  public postResourceLink: string
+  public feedbackLink: string
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
