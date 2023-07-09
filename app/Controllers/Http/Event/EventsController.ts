@@ -20,14 +20,17 @@ export default class EventsController {
   public async store({ request }) {
     const data = await request.validate(EventValidator)
     const images: Array<Object> = []
-    const files = request.files('images')
-    if (files) {
-      for (var i = 0; i < files.length; i++) {
-        const imageUrl = await cloudinary.upload(files[i].tmpPath, Env.get('CLOUDINARY_API_KEY'), { folder: 'events', eager: [{ width: 200, height: 200 }], public_id: `${Date.now()}` })
-        images.push({ imageUrl: imageUrl.secure_url })
-      }
-    }
+    const files = request.files('images', {
+      extnames: ['jpg', 'jpeg', 'png'],
+    })
+    if(!files.length) return User.getResponse(0, 'events.provideImage')
     const event = await Event.create(data)
+
+    for (var i = 0; i < files.length; i++) {
+      const imageUrl = await cloudinary.upload(files[i].tmpPath, Env.get('CLOUDINARY_API_KEY'), { folder: 'events', eager: [{ width: 200, height: 200 }], public_id: `${Date.now()}` })
+      images.push({ imageUrl: imageUrl.secure_url, eventId: event.id, publicId: imageUrl.public_id })
+    }
+
     await event.related('event_images').createMany(images)
     return User.getResponse(1, 'events.created', event)
   }

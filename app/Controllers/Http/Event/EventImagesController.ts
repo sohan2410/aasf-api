@@ -6,15 +6,15 @@ import Env from '@ioc:Adonis/Core/Env'
 import EventImage from 'App/Models/EventImage'
 
 export default class EventImagesController {
-  public async store({ request, params }) {
-    const { id } = params
+  public async store({ request }) {
+    const { id } = request.all()
     const event = await Event.find(id)
     if (!event) return User.getResponse(0, 'events.notFound')
     const images: Array<Object> = []
     const files = request.files('images', {
       extnames: ['jpg', 'jpeg', 'png'],
     })
-    // if (!files || !files.isValid) return User.getResponse(0, 'events.imageNotUploaded')
+    if(!files.length) return User.getResponse(0, 'events.provideImage')
 
     for (var i = 0; i < files.length; i++) {
       const imageUrl = await cloudinary.upload(files[i].tmpPath, Env.get('CLOUDINARY_API_KEY'), { folder: 'events', eager: [{ width: 200, height: 200 }], public_id: `${Date.now()}` })
