@@ -11,6 +11,9 @@ export default class EventImage extends BaseModel {
   @column()
   public imageUrl: string
 
+  @column()
+  public publicId: string
+
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 

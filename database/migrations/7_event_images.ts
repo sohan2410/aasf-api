@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.integer('event_id').unsigned().references('id').inTable('events').onDelete('CASCADE')
       table.string('image_url')
+      table.string('public_id')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
