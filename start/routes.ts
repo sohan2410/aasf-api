@@ -5,7 +5,7 @@ import '../Routes/Blog'
 import '../Routes/Abhishar'
 import '../Routes/User'
 import '../Routes/Attendance'
-
+import '../Routes/Organizer'
 Route.get('/', async ({}) => {
   return { message: 'Server is up and running' }
 })
