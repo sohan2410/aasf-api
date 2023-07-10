@@ -5,5 +5,6 @@
   "destroyed": "Events destroyed successfully",
   "provideImage": "Provide Images",
   "imageUploaded": "Images uploaded successfully",
-  "imagesDestroyed": "Images destroyed successfully"
+  "imagesDestroyed": "Images destroyed successfully",
+  "deleteImages": "Delete event images first"
 }

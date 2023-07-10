@@ -46,6 +46,8 @@ export default class EventsController {
     const { id } = params
     const event = await Event.find(id)
     if (!event) return User.getResponse(0, 'events.notFound')
+    const images = await EventImage.query().where('eventId', id)
+    if(images) return User.getResponse(0, 'events.deleteImages')
     await event.delete()
     return User.getResponse(1, 'events.destroyed')
   }
