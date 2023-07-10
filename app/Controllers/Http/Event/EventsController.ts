@@ -6,6 +6,8 @@ import EventUpdateValidator from 'App/Validators/Events/EventUpdateValidator'
 import cloudinary from '@ioc:Adonis/Addons/Cloudinary'
 import EventValidator from 'App/Validators/Events/EventValidator'
 import Env from '@ioc:Adonis/Core/Env'
+import Database from '@ioc:Adonis/Lucid/Database'
+import moment from 'moment'
 
 export default class EventsController {
   public async index({ request }) {
@@ -16,6 +18,19 @@ export default class EventsController {
       .preload('category')
     return User.getResponse(1, 'events.fetched', events)
   }
+  public async timeline({ request }) {
+    console.log('in timeline')
+    const events = await Event.query().orderBy('expectedDate', 'desc').select(['id', 'name', 'expectedDate'])
+    const groupedData = events.reduce((result, item) => {
+      const month = moment(item.expectedDate).format('MMMM YYYY')
+      if (!result[month]) {
+        result[month] = []
+      }
+      result[month].push(item)
+      return result
+    }, {})
+    return User.getResponse(1, 'timeline.fetched', groupedData)
+  }
   //   public async show({ request, params }) {}
   public async store({ request }) {
     const data = await request.validate(EventValidator)
@@ -23,7 +38,7 @@ export default class EventsController {
     const files = request.files('images', {
       extnames: ['jpg', 'jpeg', 'png'],
     })
-    if(!files.length) return User.getResponse(0, 'events.provideImage')
+    if (!files.length) return User.getResponse(0, 'events.provideImage')
     const event = await Event.create(data)
 
     for (var i = 0; i < files.length; i++) {

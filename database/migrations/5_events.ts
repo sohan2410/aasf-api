@@ -13,6 +13,7 @@ export default class extends BaseSchema {
       table.integer('category_id').unsigned().references('id').inTable('categories')
       table.timestamp('start_date')
       table.timestamp('end_date')
+      table.date('expected_date')
       table.string('registration_link')
       table.string('resource_link')
       table.string('feedback_link')

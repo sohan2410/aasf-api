@@ -28,6 +28,9 @@ export default class Event extends BaseModel {
   public endDate: DateTime
 
   @column()
+  public expectedDate: Date
+
+  @column()
   public duration: string
 
   @column({ serializeAs: null })
