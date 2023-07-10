@@ -16,9 +16,6 @@ export default class SubEvent extends BaseModel {
   public date: Date
 
   @column()
-  public time: Date
-
-  @column()
   public start_time: Date
 
   @column()

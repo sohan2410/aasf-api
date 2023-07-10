@@ -7,10 +7,8 @@ export default class SubEventUpdateValidator {
   public reporter = MyReporter
 
   public schema = schema.create({
-   eventId: schema.number([rules.exists({ table: 'events', column: 'id' })]),
    day: schema.number.optional(),
    date: schema.string.optional([rules.regex(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]),
-   time: schema.string.optional([rules.regex(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/)]),
    start_time: schema.string.optional([rules.regex(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/)]),
    end_time: schema.string.optional([rules.regex(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/)]),
    url: schema.string.optional(),
