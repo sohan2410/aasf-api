@@ -5,7 +5,7 @@ Route.group(() => {
   Route.resource('events', 'Event/EventsController')
   Route.resource('events/images', 'Event/EventImagesController')
   Route.resource('events/sub-events', 'Event/SubEventsController')
-  Route.resource('/events.organizers','OrganizersController')
+  Route.resource('/events/organizers','OrganizersController')
 })
 
 // .middleware({ store: ['auth', 'admin'], update: ['auth', 'admin'], destroy: ['auth', 'admin'] })

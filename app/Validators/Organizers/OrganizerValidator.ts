@@ -9,12 +9,12 @@ export default class OrganizerValidator {
   public schema = schema.create({
     eventId: schema.number([rules.exists({ table: 'events', column: 'id' })]),
     name: schema.string(),
-    emailId: schema.string([rules.regex(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)]),
+    emailId: schema.string.optional([rules.email()]),
     githubUrl: schema.string(),
     linkedinUrl: schema.string(),
     userId:schema.string.optional()    
   })
 
   // public messages = {}
-  public messages = this.ctx.i18n.validatorMessages('validation.register')
+  public messages = this.ctx.i18n.validatorMessages('event.organizer')
 }
