@@ -16,5 +16,5 @@ export default class OrganizerValidator {
   })
 
   // public messages = {}
-  public messages = this.ctx.i18n.validatorMessages('event.organizer')
+  public messages = this.ctx.i18n.validatorMessages('validation.event.organizer')
 }
