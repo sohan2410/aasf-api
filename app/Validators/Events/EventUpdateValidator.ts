@@ -11,6 +11,7 @@ export default class EventUpdateValidator {
     description: schema.string.optional(),
     startDate: schema.string.optional([rules.regex(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/)]),
     endDate: schema.string.optional([rules.regex(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/)]),
+    expectedDate: schema.string.optional([rules.regex(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/)]),
     categoryId: schema.number.optional(),
     registrationLink: schema.string.optional(),
     location: schema.string.optional(),
