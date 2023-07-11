@@ -25,6 +25,7 @@ export default class AttendancesController {
     if (!subEvent) return User.getResponse(0, 'event.subEventNotFound')
     // mark attendace if current date === event start date
     const now=Date.now()
+    //in days
     const diff=Math.floor((now-new Date(subEvent.date).getTime())/1000/60/60/24)
     if(diff===0){
     subEvent.related('attendance').firstOrCreate({ subEventId: subEvent.id, userId: user.id })
