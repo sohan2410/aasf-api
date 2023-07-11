@@ -7,8 +7,7 @@ import Env from '@ioc:Adonis/Core/Env'
 
 export default class OrganizersController {
   public async store({ request }) {
-   const data = await request.validate(OrganizerValidator)
-   console.log(data);   
+   const data = await request.validate(OrganizerValidator) 
    const organizer = await Organizer.create(data)
    return User.getResponse(1, 'Organizer.created', organizer)
   }
