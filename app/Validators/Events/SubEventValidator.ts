@@ -10,7 +10,6 @@ export default class SubEventValidator {
    eventId: schema.number([rules.exists({ table: 'events', column: 'id' })]),
    day: schema.number(),
    date: schema.string([rules.regex(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]),
-   time: schema.string(),
    start_time: schema.string(),
    end_time: schema.string(),
    url: schema.string(),
