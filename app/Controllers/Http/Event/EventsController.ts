@@ -7,6 +7,7 @@ import cloudinary from '@ioc:Adonis/Addons/Cloudinary'
 import EventValidator from 'App/Validators/Events/EventValidator'
 import Env from '@ioc:Adonis/Core/Env'
 import Database from '@ioc:Adonis/Lucid/Database'
+// import * as Moment from 'moment'
 import moment from 'moment'
 import { extendMoment } from 'moment-range'
 export default class EventsController {
@@ -19,7 +20,6 @@ export default class EventsController {
     return User.getResponse(1, 'events.fetched', events)
   }
   public async timeline({ request }) {
-    console.log('in timeline')
     const events = await Event.query().orderBy('expectedDate', 'desc').select(['id', 'name', 'expectedDate'])
     const timeline = events.reduce((result, item) => {
       const month = moment(item.expectedDate).format('MMM YY')
@@ -29,11 +29,10 @@ export default class EventsController {
       result[month].push(item)
       return result
     }, {})
-    const startDate = moment(events[0].expectedDate)
-    console.log(moment(events[0].expectedDate).format('MMM YY'))
-    const endDate = moment(events[events.length - 1].expectedDate)
+    const startDate = moment(events[events.length - 1].expectedDate)
+    const endDate = moment(events[0].expectedDate)
     const rangeMoment = extendMoment(moment)
-    const range = rangeMoment.range(endDate, startDate)
+    const range = rangeMoment.range(startDate, endDate)
     const ans: Array<string> = []
     const groupedByMonth = Array.from(range.by('month')).reduce((result, current) => {
       const monthKey = current.format('MMM YY')
