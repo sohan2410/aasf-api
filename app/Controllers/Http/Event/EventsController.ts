@@ -1,17 +1,14 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Event from 'App/Models/Event'
-import EventImage from 'App/Models/EventImage'
 import User from 'App/Models/User'
 import EventUpdateValidator from 'App/Validators/Events/EventUpdateValidator'
 import cloudinary from '@ioc:Adonis/Addons/Cloudinary'
 import EventValidator from 'App/Validators/Events/EventValidator'
 import Env from '@ioc:Adonis/Core/Env'
-import Database from '@ioc:Adonis/Lucid/Database'
 // import * as Moment from 'moment'
 import moment from 'moment'
 import { extendMoment } from 'moment-range'
 export default class EventsController {
-  public async index({ request }) {
+  public async index() {
     const events = await Event.query()
       .preload('sub_events')
       .preload('organizers', (q) => q.preload('user'))
@@ -19,7 +16,7 @@ export default class EventsController {
       .preload('category')
     return User.getResponse(1, 'events.fetched', events)
   }
-  public async timeline({ request }) {
+  public async timeline() {
     const events = await Event.query().orderBy('expectedDate', 'desc').select(['id', 'name', 'expectedDate'])
     const timeline = events.reduce((result, item) => {
       const month = moment(item.expectedDate).format('MMM YY')
@@ -34,7 +31,7 @@ export default class EventsController {
     const rangeMoment = extendMoment(moment)
     const range = rangeMoment.range(startDate, endDate)
     const ans: Array<string> = []
-    const groupedByMonth = Array.from(range.by('month')).reduce((result, current) => {
+    Array.from(range.by('month')).reduce((result, current) => {
       const monthKey = current.format('MMM YY')
       if (!result[monthKey]) {
         result[monthKey] = []
@@ -63,7 +60,7 @@ export default class EventsController {
     await event.related('event_images').createMany(images)
     return User.getResponse(1, 'events.created', event)
   }
-  public async update({ params, request, auth }) {
+  public async update({ params, request }) {
     const { id } = params
     const data = await request.validate(EventUpdateValidator)
     const event = await Event.find(id)
