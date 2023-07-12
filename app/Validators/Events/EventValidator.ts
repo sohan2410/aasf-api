@@ -11,9 +11,6 @@ export default class EventValidator {
     description: schema.string(),
     location: schema.string(),
     type: schema.enum(['online', 'offline']),
-    // startDate: schema.date(),
-    // endDate: schema.date(),
-
     startDate: schema.string([rules.regex(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/)]),
     endDate: schema.string([rules.regex(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/)]),
     expectedDate: schema.string([rules.regex(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/)]),

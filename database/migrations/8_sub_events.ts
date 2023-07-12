@@ -9,7 +9,6 @@ export default class extends BaseSchema {
       table.integer('event_id').unsigned().references('id').inTable('events').onDelete('CASCADE')
       table.integer('day')
       table.date('date')
-      table.date('time')
       table.date('start_time')
       table.date('end_time')
       table.string('url')
