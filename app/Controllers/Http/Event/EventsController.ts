@@ -8,7 +8,7 @@ import EventValidator from 'App/Validators/Events/EventValidator'
 import Env from '@ioc:Adonis/Core/Env'
 import Database from '@ioc:Adonis/Lucid/Database'
 import moment from 'moment'
-
+import { extendMoment } from 'moment-range'
 export default class EventsController {
   public async index({ request }) {
     const events = await Event.query()
@@ -21,15 +21,30 @@ export default class EventsController {
   public async timeline({ request }) {
     console.log('in timeline')
     const events = await Event.query().orderBy('expectedDate', 'desc').select(['id', 'name', 'expectedDate'])
-    const groupedData = events.reduce((result, item) => {
-      const month = moment(item.expectedDate).format('MMMM YYYY')
+    const timeline = events.reduce((result, item) => {
+      const month = moment(item.expectedDate).format('MMM YY')
       if (!result[month]) {
         result[month] = []
       }
       result[month].push(item)
       return result
     }, {})
-    return User.getResponse(1, 'timeline.fetched', groupedData)
+    const startDate = moment(events[0].expectedDate)
+    console.log(moment(events[0].expectedDate).format('MMM YY'))
+    const endDate = moment(events[events.length - 1].expectedDate)
+    const rangeMoment = extendMoment(moment)
+    const range = rangeMoment.range(endDate, startDate)
+    const ans: Array<string> = []
+    const groupedByMonth = Array.from(range.by('month')).reduce((result, current) => {
+      const monthKey = current.format('MMM YY')
+      if (!result[monthKey]) {
+        result[monthKey] = []
+      }
+      result[monthKey].push()
+      ans.push(monthKey)
+      return result
+    }, {})
+    return User.getResponse(1, 'timeline.fetched', { range: ans, timeline })
   }
   //   public async show({ request, params }) {}
   public async store({ request }) {
