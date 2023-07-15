@@ -81,6 +81,7 @@
     "phc-argon2": "^1.1.3",
     "proxy-addr": "^2.0.7",
     "qrcode": "^1.5.3",
+    "redis": "^4.6.7",
     "reflect-metadata": "^0.1.13",
     "rss-to-json": "^2.1.1",
     "socket.io": "^4.5.1",
