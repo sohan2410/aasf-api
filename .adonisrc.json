@@ -30,7 +30,8 @@
     "@rocketseat/adonis-bull",
     "@adonisjs/mail",
     "@adonisjs/view",
-    "adonisjs-cloudinary"
+    "adonisjs-cloudinary",
+    "@adonisjs/redis"
   ],
   "aceProviders": [
     "@adonisjs/repl"
