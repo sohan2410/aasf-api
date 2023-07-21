@@ -18,6 +18,7 @@ export default class EventUpdateValidator {
     type: schema.enum.optional(['offline', 'online']),
     feedbackLink: schema.string.optional(),
     resourceLink: schema.string.optional(),
+    importance: schema.number.optional(),
   })
 
   // public messages = {}

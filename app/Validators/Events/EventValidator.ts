@@ -18,6 +18,7 @@ export default class EventValidator {
     registrationLink: schema.string.optional(),
     resourceLink: schema.string.optional(),
     feedbackLink: schema.string.optional(),
+    importance: schema.number.optional(),
   })
 
   // public messages = {}
