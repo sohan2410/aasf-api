@@ -51,7 +51,6 @@ export default class EventsController {
       for (let i = 0; i < images.length; i++) {
         await cloudinary.destroy(images[i].publicId)
       }
-      await EventImage.query().where('eventId', id).delete()
     }
     await event.delete()
     return User.getResponse(1, 'events.destroyed')
