@@ -10,9 +10,8 @@ export default class AdminValidator {
     id: schema.string(),
     firstName: schema.string(),
     lastName: schema.string(),
-    email: schema.string([rules.email(), rules.unique({ table: 'users', column: 'email' })]),
-    phoneNo: schema.number(),
-    // phoneNo: schema.number([rules.unique({ table: 'users', column: 'phone_no' })]),
+    email: schema.string([rules.email()]),
+    phoneNo: schema.number.optional(),
   })
 
   public messages = this.ctx.i18n.validatorMessages('validation.register')
