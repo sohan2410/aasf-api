@@ -4,4 +4,6 @@ Route.group(() => {
   Route.patch('user', 'UsersController.update').middleware('auth')
   Route.get('user', 'UsersController.index').middleware('auth')
   Route.get('user/leaderboard', 'UsersController.leaderboard').middleware('auth')
+  Route.get('user/statistics', 'UsersController.statistics').middleware('auth')
+  Route.get('user/achievements', 'UsersController.achievements').middleware('auth')
 })

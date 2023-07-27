@@ -4,6 +4,8 @@ import User from 'App/Models/User'
 import Env from '@ioc:Adonis/Core/Env'
 import Attendance from 'App/Models/Attendance'
 import Database from '@ioc:Adonis/Lucid/Database'
+import Event from 'App/Models/Event'
+import Achievement from 'App/Models/Achievement'
 
 export default class UsersController {
   public async index({ auth }) {
@@ -27,13 +29,15 @@ export default class UsersController {
   public async leaderboard({ auth }) {
     // const attendance = await Attendance.query().where('userId', 'LIKE', `2020%`)
     const year = auth.user.id.slice(0, 4)
-    const result = await Database.rawQuery(`
+    const results = await Database.rawQuery(`
     SELECT id, first_name, last_name, image,
         SUM(technical_points) AS technical_score, 
         SUM(oratory_points) AS oratory_score, 
         SUM(managerial_points) AS managerial_score, 
         SUM(winner_points) as winner_score,
-        SUM(final_score) AS final_score FROM(
+        SUM(final_score) AS final_score,
+        ROW_NUMBER() OVER(ORDER BY final_score desc) ranking
+        FROM(
             select id, first_name, last_name, image,
               SUM(CASE WHEN type = 'technical' THEN points ELSE 0 END) AS technical_points,
               SUM(CASE WHEN type = 'oratory' THEN points ELSE 0 END) AS oratory_points,
@@ -53,9 +57,22 @@ export default class UsersController {
                 left join events on events.id = sub_events.event_id 
                 left join categories on events.category_id = categories.id 
             ) as xyz order by id
-            ) as results group by id, type
-            ) as leaderboard WHERE id LIKE '${year}%' GROUP BY id ORDER BY final_score DESC;
+			) as results group by id, type
+		) as leaderboard WHERE id LIKE '${year}%' GROUP BY id ORDER BY final_score DESC;
     `)
-    return User.getResponse(1, 'user.leaderboardFetched', result[0])
+    const user = results[0].find((e) => e.id === auth.user.id)
+    return User.getResponse(1, 'user.leaderboardFetched', { leaderboard: results[0], user })
+  }
+  public async statistics({ auth }) {
+    const statistics = await Event.query()
+      .preload('sub_events', (q) => q.preload('attendance', (q) => q.where('userId', auth.user.id)).select(['id', 'eventId', 'day']))
+      .orderBy('startDate', 'desc')
+      .select(['id', 'name'])
+    return User.getResponse(1, 'user.statisticsFetched', statistics)
+  }
+  public async achievements({ auth }) {
+    const achievements = await Achievement.query().where('userId', auth.user.id)
+    if (!achievements.length) return User.getResponse(0, 'user.achievementsNotFound')
+    return User.getResponse(1, 'user.achievementsFound', achievements)
   }
 }
