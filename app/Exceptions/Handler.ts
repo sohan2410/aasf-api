@@ -47,6 +47,9 @@ export default class ExceptionHandler extends HttpExceptionHandler {
     if (error.code === 'ER_WRONG_VALUE') {
       return response.status(200).json({ success: 0, message: i18n.formatMessage('error.incorrectValue') })
     }
+    if (error.code === 'E_CANNOT_MAKE_ROUTE_URL') {
+      return response.status(200).json({ success: 0, message: i18n.formatMessage('error.notFound') })
+    }
     // return view.render('internalservererror')
     return response.status(200).send({ success: 0, message: error.message })
   }

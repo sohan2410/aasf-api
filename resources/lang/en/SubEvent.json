@@ -1,0 +1,6 @@
+{
+  "notFound": "SubEvent not Found",
+  "created": "SubEvent created successfully",
+  "updated": "SubEvent updated successfully",
+  "destroyed": "SubEvent destroyed successfully"
+}

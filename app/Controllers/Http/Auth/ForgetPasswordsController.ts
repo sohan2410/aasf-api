@@ -10,16 +10,16 @@ import ChangePasswordValidator from 'App/Validators/Auth/ChangePasswordValidator
 import Bull from '@ioc:Rocketseat/Bull'
 import EMAIL_JOB from 'App/Jobs/Email'
 export default class ForgetPasswordsController {
-  public async store({ request }) {
+  public async store({ request, view }) {
     await request.validate(ForgetPasswordValidator)
-    const { username } = request.all()
-    const user = await User.findBy('roll_no', username)
+    const { email } = request.all()
+    const user = await User.findBy('email', email)
     if (!user) return User.getResponse(0, 'auth.accountNotFound')
-    const url = process.env.APP_URL + Route.makeSignedUrl('forgotPassword', { params: { username } })
+    const url = process.env.APP_URL + Route.makeSignedUrl('forgotPassword', { params: { email } })
 
-    let email_data = { email: user.email, button: { url, label: 'Link' }, locale: 'en' }
+    let email_data = { name: `${user.firstName} ${user.lastName}`, email, button: { url: 'google.com', label: 'Link' }, locale: 'en' }
 
-    await Bull.schedule(new EMAIL_JOB().key, { data: email_data, type: 'resetPassword' }, 1 * 1000)
+    // await Bull.schedule(new EMAIL_JOB().key, { data: email_data, type: 'resetPassword' }, 1 * 1000)
 
     return User.getResponse(1, 'auth.resetPasswordLink', process.env.NODE_ENV !== 'production' ? { url } : {})
   }

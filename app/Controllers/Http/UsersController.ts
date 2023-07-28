@@ -6,6 +6,7 @@ import Attendance from 'App/Models/Attendance'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Event from 'App/Models/Event'
 import Achievement from 'App/Models/Achievement'
+import csv from 'csvtojson'
 
 export default class UsersController {
   public async index({ auth }) {
@@ -71,8 +72,33 @@ export default class UsersController {
     return User.getResponse(1, 'user.statisticsFetched', statistics)
   }
   public async achievements({ auth }) {
-    const achievements = await Achievement.query().where('userId', auth.user.id)
+    const achievements = await Achievement.query()
+      .where('userId', auth.user.id)
+      .preload('event', (q) => q.select(['name']))
     if (!achievements.length) return User.getResponse(0, 'user.achievementsNotFound')
     return User.getResponse(1, 'user.achievementsFound', achievements)
+  }
+  public async uploadUsers({ request }) {
+    try {
+      const file = await request.file('users')
+      const users = await csv().fromFile(file.tmpPath)
+      // console.log(users)
+      for (let i = 0; i < users.length; i++) {
+        try {
+          const { id, firstName, lastName, email }: any = users[i]
+          console.log(id, firstName, lastName, email)
+          if (id && firstName && lastName && email) {
+            console.log(id, firstName, lastName, email)
+            const password = Env.get('DEFAULT_PASSWORD')
+            await User.create({ id, firstName, lastName, email, password, roleId: 3 })
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      return User.getResponse(1, 'event.usersUploaded')
+    } catch (error) {
+      return User.getResponse(0, 'event.invalidCSVFormat', error)
+    }
   }
 }
