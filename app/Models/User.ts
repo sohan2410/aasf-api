@@ -8,10 +8,11 @@ import Functions from 'App/Services/Functions'
 
 import Role from 'App/Models/Role'
 import ApiToken from './ApiToken'
+import Attendance from './Attendance'
 
 export default class User extends compose(BaseModel, File, Functions) {
   public static EMAIL_REGEX = new RegExp(process.env.EMAIL_REGEX || '')
-
+  public serializeExtras = true
   @column({ isPrimary: true })
   public id: string
 
@@ -71,6 +72,9 @@ export default class User extends compose(BaseModel, File, Functions) {
 
   @belongsTo(() => Role)
   public roles: BelongsTo<typeof Role>
+
+  @belongsTo(() => Attendance)
+  public attendance: BelongsTo<typeof Attendance>
 
   static async doLogin(auth, UserData) {
     try {

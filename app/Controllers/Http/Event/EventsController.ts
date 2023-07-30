@@ -49,12 +49,16 @@ export default class EventsController {
     const files = request.files('images', {
       extnames: ['jpg', 'jpeg', 'png'],
     })
+    const validExt = ['jpg', 'jpeg', 'png']
+
     if (!files.length) return User.getResponse(0, 'events.provideImage')
     const event = await Event.create(data)
 
     for (var i = 0; i < files.length; i++) {
-      const imageUrl = await cloudinary.upload(files[i].tmpPath, Env.get('CLOUDINARY_API_KEY'), { folder: 'events', eager: [{ width: 200, height: 200 }], public_id: `${Date.now()}` })
-      images.push({ imageUrl: imageUrl.secure_url, eventId: event.id, publicId: imageUrl.public_id })
+      if (validExt.includes(files[i].extname)) {
+        const imageUrl = await cloudinary.upload(files[i].tmpPath, Env.get('CLOUDINARY_API_KEY'), { folder: 'events', eager: [{ width: 200, height: 200 }], public_id: `${Date.now()}` })
+        images.push({ imageUrl: imageUrl.secure_url, eventId: event.id, publicId: imageUrl.public_id })
+      }
     }
 
     await event.related('event_images').createMany(images)
@@ -72,6 +76,12 @@ export default class EventsController {
     const { id } = params
     const event = await Event.find(id)
     if (!event) return User.getResponse(0, 'events.notFound')
+    const images = await EventImage.query().where('eventId', id)
+    if (images) {
+      for (let i = 0; i < images.length; i++) {
+        await cloudinary.destroy(images[i].publicId)
+      }
+    }
     await event.delete()
     return User.getResponse(1, 'events.destroyed')
   }

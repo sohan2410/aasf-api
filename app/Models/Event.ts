@@ -45,6 +45,9 @@ export default class Event extends BaseModel {
   @column()
   public feedbackLink: string
 
+  @column()
+  public importance: number
+
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 

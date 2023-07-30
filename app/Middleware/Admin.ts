@@ -6,7 +6,7 @@ export default class Admin {
     if (auth.user?.roles.slug === 'admin' || auth.user?.roles.slug === 'sub-admin') {
       await next()
     } else {
-      response.status(403).send(User.getResponse(1, 'auth.onlyAdmin'))
+      response.status(403).send(User.getResponse(0, 'auth.onlyAdmin'))
     }
   }
 }

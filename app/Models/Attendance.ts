@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Event from './Event'
+import SubEvent from './SubEvent'
 
 export default class Attendance extends BaseModel {
   @column({ isPrimary: true })
@@ -16,4 +18,7 @@ export default class Attendance extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime
+
+  @belongsTo(() => SubEvent)
+  public sub_event: BelongsTo<typeof SubEvent>
 }
