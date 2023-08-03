@@ -73,6 +73,7 @@
     "@rocketseat/adonis-bull": "^1.0.4",
     "@types/socket.io": "^3.0.2",
     "adonisjs-cloudinary": "^0.1.6",
+    "axios": "^1.4.0",
     "crypto-js": "^4.1.1",
     "csvtojson": "^2.0.10",
     "luxon": "^2.4.0",

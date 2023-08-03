@@ -6,6 +6,7 @@ import '../Routes/Blog'
 import '../Routes/Abhishar'
 import '../Routes/User'
 import '../Routes/Attendance'
+import '../Routes/ReportBug'
 Route.get('/', async ({}) => {
   return { message: 'Server is up and running' }
 })
