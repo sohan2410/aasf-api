@@ -1,7 +1,7 @@
 {
   "imageUploaded": "Image uploaded successfully",
   "fetched": "User details fetched successfully",
-  "adminCreated": "Adim created successfully"
+  "adminCreated": "Admin created successfully",
   "achievementsNotFound": "Achievements not found",
   "achievementsFound": "Achievements found successfully"
 }
