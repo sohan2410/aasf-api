@@ -7,11 +7,14 @@ import Env from '@ioc:Adonis/Core/Env'
 export default class ReportBugsController {
     public async store({ request, auth }) {
         try {
-          const {Name}=request.all()
+          const {message}=request.all()
           
+          const {id}=auth.user.$attributes
           const formResponse = {
-            Name: Name,
+            UserID: id,
+            Message: message,
           };
+
             //declare OAuth Credentials
             const client_id =Env.get('OAUTH_CLIENT_ID')
             // console.log(client_id);
@@ -35,7 +38,7 @@ export default class ReportBugsController {
           const sheets = google.sheets({ version: 'v4', auth: oAuth2Client })
           await sheets.spreadsheets.values.append({
               spreadsheetId: '1G86LjeIK_GuucSY5lcbVfNUiTn9Ei4TvmuPj5mfdMTA',//spreadsheetId
-              range: 'Form Responses 1!A2', // This might vary depending on form configuration
+              range: 'Form Responses 1!B2:C2', // This might vary depending on form configuration
               valueInputOption: 'RAW',
               requestBody: { values: [values] },
               })
