@@ -23,8 +23,16 @@ export default class AttendancesController {
     if (!decrypted) return User.getResponse(0, 'event.invalidQRCode')
     const subEvent = await SubEvent.query().where('eventId', decrypted.eventId).andWhere('day', decrypted.day).first()
     if (!subEvent) return User.getResponse(0, 'event.subEventNotFound')
-    subEvent.related('attendance').firstOrCreate({ subEventId: subEvent.id, userId: user.id })
-    return User.getResponse(1, 'event.attendanceMarked')
+    // mark attendace if current date === event start date
+    const now = Date.now()
+    //in days
+    const diff = Math.floor((now - new Date(subEvent.date).getTime()) / 1000 / 60 / 60 / 24)
+    if (diff === 0) {
+      subEvent.related('attendance').firstOrCreate({ subEventId: subEvent.id, userId: user.id })
+      return User.getResponse(1, 'event.attendanceMarked')
+    } else {
+      return User.getResponse(0, 'event.invalidQRCode')
+    }
   }
   public async upload({ request }) {
     try {
@@ -37,7 +45,6 @@ export default class AttendancesController {
           if (subEventId && userId) await Attendance.create({ subEventId: subEventId, userId: userId })
         } catch (error) {}
       }
-      //   await Attendance.createMany(attendance)
       return User.getResponse(1, 'event.attendanceUploaded')
     } catch (error) {
       return User.getResponse(0, 'event.invalidCSVFormat', error)

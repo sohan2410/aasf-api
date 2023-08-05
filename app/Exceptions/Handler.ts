@@ -39,13 +39,16 @@ export default class ExceptionHandler extends HttpExceptionHandler {
       return response.status(200).json({ success: 0, message: i18n.formatMessage('error.notFound') })
     }
     if (error.code === 'E_UNAUTHORIZED_ACCESS') {
-      return response.status(200).json({ success: 5, message: i18n.formatMessage('error.unauthorized') })
+      return response.status(401).json({ success: 0, message: i18n.formatMessage('error.unauthorized') })
     }
     if (error.code === 'E_MALFORMED_JSON') {
       return response.status(200).json({ success: 0, message: i18n.formatMessage('error.invalidJSON') })
     }
     if (error.code === 'ER_WRONG_VALUE') {
       return response.status(200).json({ success: 0, message: i18n.formatMessage('error.incorrectValue') })
+    }
+    if (error.code === 'E_CANNOT_MAKE_ROUTE_URL') {
+      return response.status(200).json({ success: 0, message: i18n.formatMessage('error.notFound') })
     }
     // return view.render('internalservererror')
     return response.status(200).send({ success: 0, message: error.message })

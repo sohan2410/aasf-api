@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('heading')
       table.string('version')
-      table.string('text')
+      table.text('text')
       table.string('image')
       table.string('pdf_link')
       table.date('date_of_launch')

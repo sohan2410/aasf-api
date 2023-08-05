@@ -28,6 +28,9 @@ export default class Event extends BaseModel {
   public endDate: DateTime
 
   @column()
+  public expectedDate: Date
+
+  @column()
   public duration: string
 
   @column({ serializeAs: null })
@@ -37,13 +40,13 @@ export default class Event extends BaseModel {
   public registrationLink: string
 
   @column()
-  public preResourceLink: string
-
-  @column()
-  public postResourceLink: string
+  public resourceLink: string
 
   @column()
   public feedbackLink: string
+
+  @column()
+  public importance: number
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime

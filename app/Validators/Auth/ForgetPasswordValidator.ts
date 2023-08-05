@@ -7,8 +7,8 @@ export default class ForgetPasswordValidator {
 
   public reporter = MyReporter
   public schema = schema.create({
-    username: schema.string(),
-    password: schema.string.optional({}, [rules.regex(/^\d{4}$/), rules.minLength(4), rules.confirmed()]),
+    email: schema.string([rules.email(), rules.exists({ column: 'email', table: 'users' })]),
+    // password: schema.string.optional({}, [rules.regex(/^\d{4}$/), rules.minLength(4), rules.confirmed()]),
   })
 
   public messages = this.ctx.i18n.validatorMessages('validation.ForgetPassword')

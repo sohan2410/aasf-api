@@ -1,0 +1,10 @@
+{
+"attendance":{
+  "attendanceMarked": "Attendance marked successfully."
+},
+"organizer":{
+  "created": "Organizer created successfully",
+  "updated": "Organizer updated successfully",
+  "destroyed": "Organizer destroyed successfully"
+}
+}
