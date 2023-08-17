@@ -41,4 +41,13 @@ export default class ForgetPasswordsController {
       return User.getResponse(0, 'auth.urlTampered')
     }
   }
+  public async adminChangePassword({ request }) {
+    await request.validate(ChangePasswordValidator)
+    const { email, password } = request.all()
+    const user = await User.findBy('email', email)
+    if (!user) return User.getResponse(0, 'auth.accountNotFound')
+    user.password = password
+    await user.save()
+    return User.getResponse(1, 'auth.passwordUpdate', user)
+  }
 }
