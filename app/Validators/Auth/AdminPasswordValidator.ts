@@ -8,7 +8,7 @@ export default class AdminPasswordValidator {
 
   public schema = schema.create({
     email: schema.string([rules.email(), rules.exists({ column: 'email', table: 'users' })]),
-    password: schema.string([rules.confirmed(), rules.minLength(4)]),
+    password: schema.string([rules.minLength(4)]),
   })
 
   public messages = this.ctx.i18n.validatorMessages('validation.register')
