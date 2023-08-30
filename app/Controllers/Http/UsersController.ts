@@ -92,7 +92,7 @@ export default class UsersController {
           console.log(id, firstName, lastName, email)
           if (id && firstName && lastName && email) {
             console.log(id, firstName, lastName, email)
-            const password = Env.get('DEFAULT_PASSWORD')
+            const password = Env.get('DEFAULT_PASSWORD') + id
             await User.create({ id, firstName, lastName, email, password, roleId: 3 })
           }
         } catch (error) {

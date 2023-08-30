@@ -9,6 +9,7 @@ import ChangePasswordValidator from 'App/Validators/Auth/ChangePasswordValidator
 
 import Bull from '@ioc:Rocketseat/Bull'
 import EMAIL_JOB from 'App/Jobs/Email'
+import AdminPasswordValidator from 'App/Validators/Auth/AdminPasswordValidator'
 export default class ForgetPasswordsController {
   public async store({ request, view }) {
     await request.validate(ForgetPasswordValidator)
@@ -40,5 +41,14 @@ export default class ForgetPasswordsController {
     } else {
       return User.getResponse(0, 'auth.urlTampered')
     }
+  }
+  public async adminChangePassword({ request }) {
+    await request.validate(AdminPasswordValidator)
+    const { email, password } = request.all()
+    const user = await User.findBy('email', email)
+    if (!user) return User.getResponse(0, 'auth.accountNotFound')
+    user.password = password
+    await user.save()
+    return User.getResponse(1, 'auth.passwordUpdate', user)
   }
 }
