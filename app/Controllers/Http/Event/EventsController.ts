@@ -7,6 +7,7 @@ import Env from '@ioc:Adonis/Core/Env'
 // import * as Moment from 'moment'
 import moment from 'moment'
 import { extendMoment } from 'moment-range'
+import EventImage from 'App/Models/EventImage'
 export default class EventsController {
   public async index() {
     const events = await Event.query()
@@ -28,6 +29,7 @@ export default class EventsController {
     }, {})
     const startDate = moment(events[events.length - 1].expectedDate)
     const endDate = moment(events[0].expectedDate)
+    // @ts-ignore
     const rangeMoment = extendMoment(moment)
     const range = rangeMoment.range(startDate, endDate)
     const ans: Array<string> = []

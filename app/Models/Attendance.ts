@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import Event from './Event'
 import SubEvent from './SubEvent'
 
 export default class Attendance extends BaseModel {

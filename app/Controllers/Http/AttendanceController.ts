@@ -1,5 +1,4 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Event from 'App/Models/Event'
 import SubEvent from 'App/Models/SubEvent'
 import User from 'App/Models/User'
 import Encryption from '@ioc:Adonis/Core/Encryption'

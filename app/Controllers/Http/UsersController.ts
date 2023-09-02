@@ -2,7 +2,6 @@
 import cloudinary from '@ioc:Adonis/Addons/Cloudinary'
 import User from 'App/Models/User'
 import Env from '@ioc:Adonis/Core/Env'
-import Attendance from 'App/Models/Attendance'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Event from 'App/Models/Event'
 import Achievement from 'App/Models/Achievement'
@@ -14,7 +13,7 @@ export default class UsersController {
     if (!user) return User.getResponse(0, 'user.notFound')
     return User.getResponse(1, 'user.fetched', auth.user)
   }
-  public async update({ params, request, auth }) {
+  public async update({ request, auth }) {
     const file = request.file('image', {
       extnames: ['jpg', 'jpeg', 'png'],
     })
@@ -22,7 +21,7 @@ export default class UsersController {
     if (!user) return User.getResponse(0, 'user.notFound')
     if (!file) return User.getResponse(0, 'user.fileNotFound')
     if (file) {
-      await cloudinary.destroy({publicId: user.id})
+      await cloudinary.destroy({ publicId: user.id })
       const imageUrl = await cloudinary.upload(file.tmpPath, Env.get('CLOUDINARY_API_KEY'), { folder: 'users', public_id: user.id })
       user.image = imageUrl.secure_url
       await user?.save()

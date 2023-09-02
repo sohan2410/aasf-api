@@ -1,5 +1,4 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import SubEvent from 'App/Models/SubEvent'
 import SubEventValidator from 'App/Validators/Events/SubEventValidator'
 import SubEventUpdateValidator from 'App/Validators/Events/SubEventUpdateValidator'
@@ -14,7 +13,7 @@ export default class SubEventsController {
     // return response
     return User.getResponse(1, 'SubEvent.created', subevent)
   }
-  public async update({ params, request, auth }) {
+  public async update({ params, request }) {
     const { id } = params
     // validate the request body
     const data = await request.validate(SubEventUpdateValidator)

@@ -1,4 +1,3 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Event from 'App/Models/Event'
 import User from 'App/Models/User'
 import cloudinary from '@ioc:Adonis/Addons/Cloudinary'
@@ -14,7 +13,7 @@ export default class EventImagesController {
     const files = request.files('images', {
       extnames: ['jpg', 'jpeg', 'png'],
     })
-    if(!files.length) return User.getResponse(0, 'events.provideImage')
+    if (!files.length) return User.getResponse(0, 'events.provideImage')
 
     for (var i = 0; i < files.length; i++) {
       const imageUrl = await cloudinary.upload(files[i].tmpPath, Env.get('CLOUDINARY_API_KEY'), { folder: 'events', eager: [{ width: 200, height: 200 }], public_id: `${Date.now()}` })
