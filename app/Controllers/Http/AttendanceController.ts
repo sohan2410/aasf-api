@@ -1,20 +1,20 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
-import Event from 'App/Models/Event'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import SubEvent from 'App/Models/SubEvent'
 import User from 'App/Models/User'
 import Encryption from '@ioc:Adonis/Core/Encryption'
 import QRCode from 'qrcode'
 import csv from 'csvtojson'
 import Attendance from 'App/Models/Attendance'
+
 export default class AttendancesController {
-  public async index({ params }) {
+  public async index({ params, response }: HttpContextContract) {
     const { id, day } = params
     const subEvent = await SubEvent.query().where('eventId', id).andWhere('day', day).first()
     if (!subEvent) return User.getResponse(0, 'event.subEventNotFound')
     const encrypted = Encryption.encrypt({ eventId: id, day: day })
-    const qrCode = await QRCode.toDataURL(encrypted)
-    return User.getResponse(1, 'event.qrCodeCreated', { qrCode })
+    const qrCode = await QRCode.toBuffer(encrypted)
+    response.header('Content-type', 'image/png')
+    response.send(qrCode)
   }
   public async store({ request, auth }) {
     const { hash } = request.all()
