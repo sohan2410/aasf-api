@@ -4,10 +4,10 @@
     "exists": "{field} does not exists in our database"
   },
   "ForgetPassword": {
-    "username.required": "Please provide your email address linked to your  Account",
-    "username.exists": "This account does not exists in our database, Please check your phone number",
+    "username.required": "Please provide your email address linked to your Account",
+    "username.exists": "This account does not exists in our database. Please check your phone number",
     "otp.maxLength": "One-time password cannot be longer than {maxlength} digits",
-    "password.regex": "Please provide valid password"
+    "password.regex": "Please provide a valid password"
   },
   "register": {
     "firstName.required": "First name is required and cannot be empty",
@@ -15,9 +15,9 @@
     "email.required": "Email address is required and cannot be empty",
     "email.email": "Please provide a valid email address",
     "email.regex": "Please provide a valid email address",
-    "email.unique": "Email is already linked to other account, Please provide a new email or login",
+    "email.unique": "Email is already linked to an account. Please provide a new email or login",
     "mobile.required": "Phone number is required and cannot be empty",
-    "mobile.unique": "Phone number is already linked to other account, Please provide a new phone number or login",
+    "mobile.unique": "Phone number is already linked to an account. Please provide a new phone number or login",
     "password.required": "Password is required and cannot be empty",
     "password.minLength": "Password must have at-least {minLength} characters",
     "password.confirmed": "Password and confirmed password do not match",
@@ -30,5 +30,16 @@
   "user": {
     "regex": "Please provide a valid email address",
     "exists": "Email does not exist in our database"
+  },
+  "event": {
+    "organizer": {
+      "eventId": "EventID id required and cannot be empty",
+      "name": "Event name id required and cannot be empty",
+      "emailID": "Please provide a valid email address",
+      "githubUrl": "Please provide a valid GitHub Url",
+      "linkedinUrl": "Please provide a valid Linkedin Url",
+      "userId": "Please provide a valid userId"
+    } 
   }
 }
+
