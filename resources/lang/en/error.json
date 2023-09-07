@@ -2,5 +2,6 @@
   "notFound": "It's look like you've reached a URL that doesn't exists.",
   "unauthorized": "Unauthorized access",
   "internalServerError": "Internal Server Error Occured",
-  "incorrectValue": "Please provide a valid value"
+  "incorrectValue": "Please provide a valid value",
+  "invalidJSOn": "Json is invalid"
 }
