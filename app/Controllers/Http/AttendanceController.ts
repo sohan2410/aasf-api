@@ -31,7 +31,7 @@ export default class AttendancesController {
       subEvent.related('attendance').firstOrCreate({ subEventId: subEvent.id, userId: user.id })
       return User.getResponse(1, 'event.attendanceMarked')
     } else {
-      return User.getResponse(0, 'event.invalidQRCode')
+      return User.getResponse(0, 'event.QRCodeExpired')
     }
   }
   public async upload({ request }) {
