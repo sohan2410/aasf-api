@@ -1,10 +1,14 @@
 {
-"attendance":{
-  "attendanceMarked": "Attendance marked successfully."
-},
-"organizer":{
-  "created": "Organizer created successfully",
-  "updated": "Organizer updated successfully",
-  "destroyed": "Organizer destroyed successfully"
-}
+  "attendanceMarked": "Attendance marked successfully",
+  "organizer": {
+    "created": "Organizer created successfully",
+    "updated": "Organizer updated successfully",
+    "destroyed": "Organizer destroyed successfully"
+  },
+  "invalidCSVFormat": "CSV format not supported",
+  "invalidQRCode": "Invalid QR Code",
+  "userUploaded": "User uploaded successfully",
+  "subEventNotFound": "Event not found",
+  "attendanceUploaded": "Attendance uploaded successfully",
+  "QRCodeExpired": "QRCode expired"
 }

@@ -2,8 +2,9 @@
   "fetched": "Events fetched successfully",
   "created": "Events created successfully",
   "updated": "Events updated successfully",
-  "destroyed": "Events destroyed successfully",
-  "provideImage": "Provide Images",
+  "notFound": "No Event Found",
+  "destroyed": "Events deleted successfully",
+  "provideImage": "Upload Images",
   "imageUploaded": "Images uploaded successfully",
-  "imagesDestroyed": "Images destroyed successfully"
+  "imagesDestroyed": "Images deleted successfully"
 }

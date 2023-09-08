@@ -1,7 +1,11 @@
 {
-  "imageUploaded": "Image uploaded successfully",
-  "fetched": "User details fetched successfully",
-  "adminCreated": "Admin created successfully",
-  "achievementsNotFound": "Achievements not found",
-  "achievementsFound": "Achievements found successfully"
+  "imageUploaded": "Image has been successfully uploaded",
+  "fetched": "User details retrieved successfully",
+  "adminCreated": "Successfully created the admin account",
+  "achievementsNotFound": "No achievements found",
+  "achievementsFound": "Achievements found successfully",
+  "notFound": "User not found",
+  "fileNotFound": "User file not found",
+  "leaderboardFetched": "Leaderboard fetched successfully",
+  "statisticsFetched": "User statistics fetched successfully"  
 }
