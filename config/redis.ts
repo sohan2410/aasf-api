@@ -43,7 +43,6 @@ export default redisConfig({
       keyPrefix: '',
       maxRetriesPerRequest: null,
       enableReadyCheck: false,
-      enableTLSForSentinelMode: true,
     },
   },
 })

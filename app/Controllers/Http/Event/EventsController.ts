@@ -19,30 +19,20 @@ export default class EventsController {
   }
   public async timeline() {
     const events = await Event.query().orderBy('expectedDate', 'desc').select(['id', 'name', 'expectedDate'])
-    const timeline = events.reduce((result, item) => {
-      const month = moment(item.expectedDate).format('MMM YY')
-      if (!result[month]) {
-        result[month] = []
-      }
-      result[month].push(item)
-      return result
-    }, {})
     const startDate = moment(events[events.length - 1].expectedDate)
     const endDate = moment(events[0].expectedDate)
     // @ts-ignore
     const rangeMoment = extendMoment(moment)
     const range = rangeMoment.range(startDate, endDate)
-    const ans: Array<string> = []
-    Array.from(range.by('month')).reduce((result, current) => {
-      const monthKey = current.format('MMM YY')
-      if (!result[monthKey]) {
-        result[monthKey] = []
-      }
-      result[monthKey].push()
-      ans.push(monthKey)
-      return result
-    }, {})
-    return User.getResponse(1, 'timeline.fetched', { range: ans, timeline })
+    const timeline: Record<string, any[]> = {}
+    for (const month of range.by('months')) {
+      const eventsInMonth = events.filter((event) => {
+        const eventDate = moment(event.expectedDate)
+        return eventDate.isSame(month, 'month')
+      })
+      timeline[month.format('MMM YY')] = eventsInMonth
+    }
+    return User.getResponse(1, 'timeline.fetched', { range: Object.keys(timeline), timeline })
   }
   //   public async show({ request, params }) {}
   public async store({ request }) {
